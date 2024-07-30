@@ -21,9 +21,8 @@ class WPRAffiliateReferenceProduct
         add_action('save_post_product', array($this, 'update_external_products_on_reference_update'), 20, 3);
         add_action('wp_ajax_wpr_search_products', array('WPR_Product_Selector', 'search_products'));
         add_action('woocommerce_before_single_product', array($this, 'update_affiliate_product_price_on_view'));
-        add_action('woocommerce_before_add_to_cart_quantity', array($this, 'show_quantity_field_for_external_products'));
 
-        // Add new action to display the last update date of reference product and its own update date
+        // Add new actions to display the last update date
         add_action('woocommerce_single_product_summary', array($this, 'display_reference_product_last_update'), 25);
         add_action('woocommerce_single_product_summary', array($this, 'display_product_last_update'), 26);
     }
@@ -200,7 +199,7 @@ class WPRAffiliateReferenceProduct
     {
         global $post;
 
-        if ($post->post_type != 'product') {
+        if ($post->post_type != 'product' || get_post_meta($post->ID, '_wpr_enable_reference_product', true) === 'yes') {
             return;
         }
 
