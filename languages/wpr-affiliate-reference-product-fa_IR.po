@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPR Affiliate Reference Product\n"
-"POT-Creation-Date: 2024-07-30 14:38-0500\n"
-"PO-Revision-Date: 2024-07-30 14:41-0500\n"
+"POT-Creation-Date: 2024-07-30 16:29-0500\n"
+"PO-Revision-Date: 2024-07-30 16:30-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -37,6 +37,17 @@ msgstr "انتخاب محصول مرجع"
 msgid "Clear Product"
 msgstr "حذف محصول"
 
+#: wpr-affiliate-reference-product.php:195
+#, fuzzy, php-format
+#| msgid "Enable to select a reference product."
+msgid "Last update of reference product: %s"
+msgstr "برای انتخاب محصول مرجع فعال کنید"
+
+#: wpr-affiliate-reference-product.php:209
+#, php-format
+msgid "Last update of this product: %s"
+msgstr "آخرین بروزرسانی این محصول در %s بوده است"
+
 #. Plugin Name of the plugin/theme
 msgid "WPR Affiliate Reference Product"
 msgstr "محصول مرجع ووکامرس (ویژه محصول افلییت / خارجی)"
@@ -51,4 +62,4 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Mohammad Amin Azadian + GPT 4o :)"
-msgstr "محمد امین آزادیان + GPT 4o"
+msgstr "محمد امین آزادیان"

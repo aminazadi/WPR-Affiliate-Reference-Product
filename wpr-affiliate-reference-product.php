@@ -22,6 +22,10 @@ class WPRAffiliateReferenceProduct
         add_action('wp_ajax_wpr_search_products', array('WPR_Product_Selector', 'search_products'));
         add_action('woocommerce_before_single_product', array($this, 'update_affiliate_product_price_on_view'));
         add_action('woocommerce_before_add_to_cart_quantity', array($this, 'show_quantity_field_for_external_products'));
+
+        // Add new action to display the last update date of reference product and its own update date
+        add_action('woocommerce_single_product_summary', array($this, 'display_reference_product_last_update'), 25);
+        add_action('woocommerce_single_product_summary', array($this, 'display_product_last_update'), 26);
     }
 
     public function load_textdomain()
@@ -32,6 +36,7 @@ class WPRAffiliateReferenceProduct
     public function enqueue_scripts()
     {
         wp_enqueue_style('select2-css', plugins_url('assets/css/select2.min.css', __FILE__), [], '4.0.13');
+        wp_enqueue_style('wpr-affiliate-reference-product-css', plugins_url('assets/css/wpr-affiliate-reference-product.css', __FILE__), [], '1.0');
         wp_enqueue_script('select2-js', plugins_url('assets/js/select2.min.js', __FILE__), ['jquery'], '4.0.13', true);
         wp_enqueue_script('wpr-admin-js', plugins_url('assets/js/wpr-admin.js', __FILE__), ['jquery', 'select2-js'], '1.0', true);
 
@@ -164,6 +169,44 @@ class WPRAffiliateReferenceProduct
             </script>
             <?php
         }
+    }
+
+    // Add new function to display last update date of reference product
+    public function display_reference_product_last_update()
+    {
+        global $post;
+        $enable_reference_product = get_post_meta($post->ID, '_wpr_enable_reference_product', true);
+        if ($enable_reference_product !== 'yes') {
+            return;
+        }
+
+        $reference_product_id = get_post_meta($post->ID, '_wpr_reference_product_id', true);
+        if (!$reference_product_id) {
+            return;
+        }
+
+        $reference_product = wc_get_product($reference_product_id);
+        if (!$reference_product) {
+            return;
+        }
+
+        $last_update = get_the_modified_date('j F Y, H:i', $reference_product_id);
+
+        echo '<p class="reference-product-last-update">' . sprintf(__('Last update of reference product: %s', 'wpr-affiliate-reference-product'), $last_update) . '</p>';
+    }
+
+    // Add new function to display last update date of the product itself
+    public function display_product_last_update()
+    {
+        global $post;
+
+        if ($post->post_type != 'product') {
+            return;
+        }
+
+        $last_update = get_the_modified_date('j F Y, H:i', $post->ID);
+
+        echo '<p class="product-last-update">' . sprintf(__('Last update of this product: %s', 'wpr-affiliate-reference-product'), $last_update) . '</p>';
     }
 }
 
