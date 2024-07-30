@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPR Affiliate Reference Product\n"
-"POT-Creation-Date: 2024-07-30 16:29-0500\n"
-"PO-Revision-Date: 2024-07-30 16:30-0500\n"
+"POT-Creation-Date: 2024-07-30 17:19-0500\n"
+"PO-Revision-Date: 2024-07-30 17:21-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -37,16 +37,15 @@ msgstr "انتخاب محصول مرجع"
 msgid "Clear Product"
 msgstr "حذف محصول"
 
-#: wpr-affiliate-reference-product.php:195
-#, fuzzy, php-format
-#| msgid "Enable to select a reference product."
+#: wpr-affiliate-reference-product.php:194
+#, php-format
 msgid "Last update of reference product: %s"
-msgstr "برای انتخاب محصول مرجع فعال کنید"
+msgstr "آخرین بروزرسانی این محصول:  %s "
 
-#: wpr-affiliate-reference-product.php:209
+#: wpr-affiliate-reference-product.php:208
 #, php-format
 msgid "Last update of this product: %s"
-msgstr "آخرین بروزرسانی این محصول در %s بوده است"
+msgstr "آخرین بروزرسانی این محصول:  %s "
 
 #. Plugin Name of the plugin/theme
 msgid "WPR Affiliate Reference Product"
