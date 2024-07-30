@@ -3,7 +3,7 @@
  * Plugin Name: WPR Affiliate Reference Product
  * Description: Plugin to select a reference product in WooCommerce external/affiliate products.
  * Version: 1.0
- * Author: Mohammad Amin Azadian + GPT 4o :)
+ * Author: Mohammad Amin Azadian :)
  */
 
 defined('ABSPATH') || exit;
@@ -170,7 +170,7 @@ class WPRAffiliateReferenceProduct
         }
     }
 
-    // Add new function to display last update date of reference product
+    // Add new function to display last update time elapsed of reference product
     public function display_reference_product_last_update()
     {
         global $post;
@@ -189,12 +189,17 @@ class WPRAffiliateReferenceProduct
             return;
         }
 
-        $last_update = get_the_modified_date('j F Y, H:i', $reference_product_id);
+        $last_update = get_post_modified_time('U', false, $reference_product_id);
+        $current_time = current_time('timestamp');
+        $time_difference = $current_time - $last_update;
+        $time_string = human_time_diff($last_update, $current_time) .' '. __(' ago', 'wpr-affiliate-reference-product');
 
-        echo '<p class="reference-product-last-update">' . sprintf(__('Last update of reference product: %s', 'wpr-affiliate-reference-product'), $last_update) . '</p>';
+        $color = $time_difference <= 15 * DAY_IN_SECONDS ? 'green' : 'red';
+
+        echo '<p class="reference-product-last-update">' . sprintf(__('Last update of reference product: %s', 'wpr-affiliate-reference-product'), $time_string) . '<span class="update-indicator" style="background-color:' . $color . ';"></span></p>';
     }
 
-    // Add new function to display last update date of the product itself
+    // Add new function to display last update time elapsed of the product itself
     public function display_product_last_update()
     {
         global $post;
@@ -203,9 +208,14 @@ class WPRAffiliateReferenceProduct
             return;
         }
 
-        $last_update = get_the_modified_date('j F Y, H:i', $post->ID);
+        $last_update = get_post_modified_time('U', false, $post->ID);
+        $current_time = current_time('timestamp');
+        $time_difference = $current_time - $last_update;
+        $time_string = human_time_diff($last_update, $current_time) .' '. __(' ago', 'wpr-affiliate-reference-product');
 
-        echo '<p class="product-last-update">' . sprintf(__('Last update of this product: %s', 'wpr-affiliate-reference-product'), $last_update) . '</p>';
+        $color = $time_difference <= 15 * DAY_IN_SECONDS ? 'green' : 'red';
+
+        echo '<p class="product-last-update">' . sprintf(__('Last update of this product: %s', 'wpr-affiliate-reference-product'), $time_string) . '<span class="update-indicator" style="background-color:' . $color . ';"></span></p>';
     }
 }
 
